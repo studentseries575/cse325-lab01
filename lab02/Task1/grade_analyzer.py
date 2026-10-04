@@ -1,24 +1,47 @@
-# CSE325-2026-L02-M4RB-T1
+# CSE325-2026-L02-M4RB-T3
 
-QUALITY_BASELINE = "before"
+QUALITY_BASELINE = "after"
+GRADES_PER_STUDENT = 3
 
-def analyze_grades():
-    print("Grade Analyzer")
 
+def read_student_records():
     students = []
-
     count = int(input("Enter number of students: "))
 
     for i in range(count):
         name = input("Enter student name: ")
         grades = []
 
-        for j in range(3):
+        for j in range(GRADES_PER_STUDENT):
             grade = float(input(f"Enter grade {j + 1}: "))
             grades.append(grade)
 
         students.append({"name": name, "grades": grades})
 
+    return students
+
+
+def calculate_average(grades):
+    return sum(grades) / len(grades)
+
+
+def letter_grade(average):
+    if average >= 90:
+        return "A"
+    elif average >= 80:
+        return "B"
+    elif average >= 70:
+        return "C"
+    elif average >= 60:
+        return "D"
+    else:
+        return "F"
+
+
+def analyze_grades():
+    print("Grade Analyzer")
+
+    students = read_student_records()
     total_students = len(students)
 
     if total_students == 0:
@@ -28,21 +51,9 @@ def analyze_grades():
     total_average = 0
 
     for student in students:
-        grades = student["grades"]
-
-        average = sum(grades) / len(grades)
+        average = calculate_average(student["grades"])
         total_average += average
-
-        if average >= 90:
-            letter = "A"
-        elif average >= 80:
-            letter = "B"
-        elif average >= 70:
-            letter = "C"
-        elif average >= 60:
-            letter = "D"
-        else:
-            letter = "F"
+        letter = letter_grade(average)
 
         print(
             f"Student: {student['name']}, "
@@ -50,17 +61,7 @@ def analyze_grades():
         )
 
     overall_average = total_average / total_students
-
-    if overall_average >= 90:
-        overall_letter = "A"
-    elif overall_average >= 80:
-        overall_letter = "B"
-    elif overall_average >= 70:
-        overall_letter = "C"
-    elif overall_average >= 60:
-        overall_letter = "D"
-    else:
-        overall_letter = "F"
+    overall_letter = letter_grade(overall_average)
 
     print(f"Overall Average: {overall_average:.2f}")
     print(f"Overall Grade: {overall_letter}")
