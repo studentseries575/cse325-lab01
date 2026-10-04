@@ -1,11 +1,10 @@
 # CSE325-2026-L01-K7QX
 
-RUN_PROFILE = "manual"
+RUN_PROFILE = "ai"
 
 def celsius_to_fahrenheit(celsius):
-    return (celsius * 9 / 5) + 30
+    return (celsius * 9 / 5) + 32
 
-# Conversion completed successfully
 celsius = float(input("Enter temperature in Celsius: "))
 fahrenheit = celsius_to_fahrenheit(celsius)
 
